@@ -1,149 +1,162 @@
+<!--
+ * @Author: zcj
+ * @Autor: Seven
+ * @Date: 2022-05-05 14:42:59
+ * @LastEditors: Seven
+ * @LastEditTime: 2022-06-24 18:10:29
+ * @FilePath: \uniDemod:\studyWeb\vue\mvvm\index.html
+ * @Description: 
+ * @Version: 2.0
+-->
+<!-- vue数据双向绑定是通过数据劫持结合发布者-订阅者模式的方式来实现的 -->
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MVVM</title>
 </head>
+
 <body>
     <div id="app">
-        {{name}}123
-        <!-- <h2>{{title}}</h2>
-        <input v-model="name">
-        <h1>{{name}}</h1>
-        <button v-on:click="clickMe">click me!</button> -->
+        {{name}}
     </div>
     <script>
+        // Observer是一个数据监听器，其实现核心方法就是前文所说的Object.defineProperty( )。如果要对所有属性都进行监听的话，
+        // 那么可以通过递归方法遍历所有属性值，并对其进行Object.defineProperty( )处理。如下代码，实现了一个Observer
+
         function defineReactive(data, key, val) {
             observe(val); //递归遍历所有子属性
-            const dep = new Dep(); //实例化订阅器构造函数对象
-            // console.log('dep>>>>>>>>>>',dep)
-            // console.log('Dep>>>>>>>>>>',Dep)
+            var dep = new Dep();
             Object.defineProperty(data, key, {
                 enumerable: true,
                 configurable: true,
-                get: () => {
-                    console.log('Dep1111>>>>>>>>>>',Dep)
-                    console.log('Dep.target',Dep.target)
-                    if (Dep.target) { //判断是否需要添加订阅者
+                get: function () {
+                    if (Dep.target) { //判断是否添加订阅者
                         dep.addSub(Dep.target); //在这里添加一个订阅者
                     }
                     return val;
                 },
-                set: newVal => {
+                set: function (newVal) {
                     if (val === newVal) {
                         return;
                     }
                     val = newVal;
-                    // console.log('属性' + key + '已经被监听了，现在值为：“' + newVal.toString() + '”');
                     dep.notify(); //如果数据变化，通知所有订阅者
                 }
             })
-        }
+        };
 
-        //监听器
+        //数据监听器
         function observe(data) {
             if (!data || typeof data !== 'object') {
                 return;
             };
-            Object.keys(data).map(key => {
-                defineReactive(data, key, data[key]);
+            Object.keys(data).forEach(function (key) {
+                defineReactive(data, key, data[key])
             })
-        }
+        };
 
-        //订阅器
+        //订阅器 存放订阅者的数组
         function Dep() {
             this.subs = [];
         }
         Dep.prototype = {
+            //添加 订阅
             addSub: function (sub) {
-                this.subs.push(sub); //添加订阅者
+                this.subs.push(sub);
             },
+            //通知 发布
             notify: function () {
-                this.subs.map(sub => {
+                this.subs.forEach(function (sub) {
+                    //更新订阅者
                     sub.update();
-                });
+                })
             }
         }
-        console.log('Dep>>>>>>>>>>>>>>>>,,,,,,,,',Dep)
-        console.log('Dep>>>>>>>>>>>>>>>>,,,,,,,,',Dep.target)
         Dep.target = null;
-        console.log('Dep>>>>>>>>>>>>>>>>,,,,,,,,',Dep)
-        console.log('Dep>>>>>>>>>>>>>>>>,,,,,,,,',Dep.target)
 
-        /**
-         * @Author: zcj
-         * @author: Seven
-         * @description: 
-         * @param {*} vm 数据劫持的对象
-         * @param {*} exp 监听对象上的键名
-         * @param {*} cd 回调函数
-         * @return {*}
-         */                
-        function Watcher(vm, exp, cd) {
+        // 订阅者Watcher在初始化的时候需要将自己添加进订阅器Dep中，那该如何添加呢？
+        // 我们已经知道监听器Observer是在get函数执行了添加订阅者Wather的操作的，
+        // 所以我们只要在订阅者Watcher初始化的时候出发对应的get函数去执行添加订阅者操作即可，
+        // 那要如何触发get的函数，再简单不过了，只要获取对应的属性值就可以触发了，
+        // 核心原因就是因为我们使用了Object.defineProperty()进行数据监听。
+        // 这里还有一个细节点需要处理，我们只要在订阅者Watcher初始化的时候才需要添加订阅者，所以需要做一个判断操作，
+        // 因此可以在订阅器上做一下手脚：在Dep.target上缓存下订阅者，添加成功后再将其去掉就可以了。
+
+        function Watcher(vm, exp, cb) {
+            this.cb = cb;
             this.vm = vm;
             this.exp = exp;
-            this.cd = cd;
-            console.log('cd>>>>>>>>',cd)
-            this.value = this.get(); //将自己添加到订阅器的操作,在watcher被实例化的时候调用下文的get方法
-            console.log('this.value>>>>>>>>',this.value)
-        };
+            this.value = this.get(); //将自己添加到订阅器的操作
+        }
+
         Watcher.prototype = {
             update: function () {
                 this.run();
             },
             run: function () {
-                const value = this.vm.data[this.exp];
+                var value = this.vm.data[this.exp];
                 var oldVal = this.value;
                 if (value !== oldVal) {
                     this.value = value;
-                    this.cd.call(this.vm, value, oldVal);
-                };
+                    this.cb.call(this.vm, value, oldVal);
+                }
             },
             get: function () {
-                console.log('this>>>>>>>>>>>>>',this)
-                Dep.target = this; //缓存自己,缓存当前的this，this是一个watcher对象
-                console.log('Dep>>>>>>>>>>>>>>>>////////////////////',Dep)
-                console.log('Depnotify>>>>>>>>>>>>>>>>////////////////////',Dep.target)
-                //强制执行监听器里的get函数,这段是精髓，通过获取对应属性的值，调用了被监听数据的get方法，由此调用了dep.depend()方法。
-                //由于Dep.target是存在的，于是往Dep实例中的subs数组添加了一个依赖，也就是watcher对象。
-                const value = this.vm.data[this.exp]; 
+                Dep.target = this; //缓存自己
+                var value = this.vm.data[this.exp]; //强制执行监听器里的get函数
                 Dep.target = null; //释放自己
                 return value;
             }
         };
 
-        /**
-         * @Author: zcj
-         * @author: Seven
-         * @description: 
-         * @param {*} data 数据劫持的对象
-         * @param {*} el dom
-         * @param {*} exp 监听对象上的键名
-         * @return {*}
-         */        
+        // 实现一个解析器Compile来做解析和绑定工作。 解析器Compile实现步骤：
+        // 1. 解析模板指令， 并替换模板数据， 初始化视图
+        // 2. 将模板指令对应的节点绑定对应的更新函数， 初始化相应的订阅器
+        // 为了解析模板， 首先需要获取到dom元素， 然后对含有dom元素上含有指令的节点进行处理，
+        // 因此这个环节需要对dom操作比较频繁， 所有可以先建一个fragment片段， 将需要解析的dom节点存入fragment片段里再进行处理：
+
+
+        // 将Observer和Watcher关联起来
         function SelfVue(data, el, exp) {
             this.data = data;
-            observe(data); //实现一个监听器Observer，用来劫持并监听所有属性，如果有变动的，就通知订阅者。
+            Object.keys(data).forEach(key => {
+                this.proxyKeys(key)
+            })
+            observe(data);
             el.innerHTML = this.data[exp]; //初始化模板数据的值
             new Watcher(this, exp, function (value) {
-                console.log('value>>>>>>>>',value)
-                // el.innerHTML = value;
+                el.innerHTML = value;
             });
             return this;
         }
 
-        const ele = document.querySelector('#app');
-        // console.log('ele',ele)
-        const selfVue = new SelfVue({
-            name: 'hello world'
+        SelfVue.prototype = {
+            proxyKeys: function (key) {
+                Object.defineProperty(this, key, {
+                    enumerable: false,
+                    configurable: true,
+                    get: function () {
+                        return this.data[key];
+                    },
+                    set: function (newVal) {
+                        this.data[key] = newVal;
+                    }
+                })
+            }
+        }
+
+        var ele = document.querySelector('#app');
+        var selfVue = new SelfVue({
+            name: 'hello world',
+            title: '是'
         }, ele, 'name');
-        console.log('SelfVue>>>>>>>>>>>>>',selfVue)
-        // setTimeout(() => {
-        //     // console.log('name的值改变了');
-        //     selfVue.data.name = 'canfoo';
-        // }, 2000);
+        setTimeout(function () {
+            selfVue.name = 'canfoo';
+        }, 2000)
     </script>
 </body>
 
