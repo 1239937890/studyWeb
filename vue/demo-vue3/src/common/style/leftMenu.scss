@@ -1,0 +1,34 @@
+.left {
+    @include w-h(198rpx, 100%);
+    background-color: #F5F6F7;
+
+    .item {
+        position: relative;
+        @include flex(flex-start, center);
+        height: 110rpx;
+
+        .text {
+            margin: 0 35rpx;
+            font-family: PingFang SC;
+            font-size: 32rpx;
+            color: #666666;
+        }
+    }
+
+    .activity_item {
+        background-color: #FFFFFF;
+
+        .activity {
+            position: absolute;
+            top: 44rpx;
+            left: 18rpx;
+            @include w-h(4rpx, 22rpx);
+            background-color: #4F90F7;
+            border-radius: 2rpx;
+        }
+
+        .text {
+            color: #4F90F7;
+        }
+    }
+}

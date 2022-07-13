@@ -1,0 +1,23 @@
+.nothing {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    padding: 226rpx 20rpx 0 20rpx;
+
+    .image {
+        @include w-h(650rpx, 492rpx);
+    }
+
+    .text {
+        position: absolute;
+        bottom: 113rpx;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 30rpx;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #9CA9C9;
+        line-height: 28rpx;
+        white-space: nowrap;
+    }
+}

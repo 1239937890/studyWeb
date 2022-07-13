@@ -1,0 +1,46 @@
+.article {
+    margin-top: 27rpx;
+    padding-bottom: 72rpx;
+
+    .item {
+        position: relative;
+        @include flex(flex-start, initial);
+        padding: 24rpx 0;
+
+        .image {
+            @include w-h(233rpx, 165rpx);
+            min-width: 233rpx;
+            margin-right: 26rpx;
+            border-radius: 10rpx;
+        }
+    }
+
+    .right {
+        flex: 1;
+        @include flex(space-between, initial);
+        flex-direction: column;
+        padding: 6rpx 0;
+
+        .title {
+            font-size: 30rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #333333;
+        }
+    }
+
+    .row {
+        @include flex(space-between, center);
+
+        .text {
+            font-size: 24rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #999999;
+        }
+
+        .iconfont {
+            margin-right: 8rpx;
+        }
+    }
+}

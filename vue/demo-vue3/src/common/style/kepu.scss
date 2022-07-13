@@ -1,0 +1,122 @@
+.page {
+    // padding-bottom: 1rpx;
+    min-height: 100vh;
+    background-color: #FFFFFF;
+}
+
+.search {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: #FFFFFF;
+    z-index: 100;
+}
+
+.main {
+    padding: 144rpx 30rpx 30rpx 30rpx;
+}
+
+.bg {
+    display: flex;
+    padding: 12rpx 0 50rpx 0;
+
+    image {
+        @include w-h(100%, 200rpx);
+
+    }
+}
+
+.dep_icon {
+    margin: 24rpx 0 28rpx 0;
+}
+
+.dep_tabs ::v-deep .dep_tabs {
+    background-color: #FFFFFF;
+	padding-top: 20rpx;
+}
+
+.dep ::v-deep .item {
+    background-color: #F7FAFC !important;
+}
+
+::v-deep .nothing {
+    padding-top: 0 !important;
+}
+
+.half_line_box {
+    position: relative;
+}
+
+.swiper_container {
+    padding-top: 42rpx;
+    .my_swiper{
+        min-height: 600rpx;
+    }
+}
+
+.skeleton {
+    padding: 0 30rpx;
+
+    .row {
+        margin-bottom: 30rpx;
+    }
+}
+.sticky{
+	padding: 0rpx 30rpx 0rpx 30rpx;
+}
+.my_sticky ::v-deep .u-sticky {
+    position: fixed !important;
+    top: 144rpx;
+    left: 0;
+    right: 0;
+    left: 0;
+    z-index: 10 !important;
+}
+
+.is_sticky {
+    position: sticky;
+    // padding-top: 24rpx;
+    background-color: #FFFFFF;
+    // z-index: 3;
+    z-index: 101;
+}
+
+.is_fixed {
+    position: fixed !important;
+    left: 0;
+    right: 0;
+    left: 0;
+    z-index: 100 !important;
+}
+
+.warp {
+    width: 100%;
+    background-color: #FFFFFF;
+
+    .rect {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 80rpx 20rpx 20rpx 20rpx;
+
+        .item {
+            margin: 10rpx;
+            padding: 10rpx 20rpx;
+            font-size: 30rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #333333;
+            background-color: #F5F6F7;
+            border-radius: 30rpx;
+        }
+
+        .activity {
+            color: #3578F2;
+            background-color: #DCE9FD;
+        }
+    }
+}
+
+.my_popup ::v-deep .uni-popup {
+    z-index: 8;
+}

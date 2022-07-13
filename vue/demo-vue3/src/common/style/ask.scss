@@ -1,0 +1,94 @@
+.ask {
+    padding: 0 30rpx;
+
+    .item {
+        height: 396rpx;
+
+        .content {
+            margin-bottom: 24rpx;
+            padding: 34rpx 24rpx;
+            height: 372rpx;
+            background-color: #FFFFFF;
+            border: 1rpx solid #EEEEEE;
+            box-shadow: 3rpx 5rpx 24rpx 0rpx rgba(213, 214, 218, 0.54);
+            border-radius: 20rpx;
+            box-sizing: border-box;
+        }
+    }
+
+    .row_1 {
+        display: flex;
+
+        .image {
+            margin-top: 7rpx;
+            margin-right: 14rpx;
+            @include w-h(34rpx, 38rpx);
+            min-width: 34rpx;
+        }
+
+        .text {
+            font-size: 34rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #000000;
+        }
+    }
+
+    .row_2 {
+        display: flex;
+        // margin: 33rpx 0 22rpx 0;
+        margin: 24rpx 0 20rpx 0;
+
+        .image {
+            margin-top: 7rpx;
+            margin-right: 14rpx;
+            @include w-h(34rpx, 38rpx);
+            min-width: 34rpx;
+        }
+
+        .text {
+            font-size: 30rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            line-height: 46rpx;
+            letter-spacing: 5rpx;
+            color: #333333;
+        }
+    }
+
+    .row_3 {
+        @include flex(flex-start, center);
+
+        .image {
+            margin-right: 17rpx;
+            @include w-h(72rpx, 72rpx);
+            border-radius: 50%;
+        }
+
+        .title {
+            @include flex(flex-start, baseline);
+            margin-bottom: 15rpx;
+            font-size: 28rpx;
+            color: #000000;
+        }
+    }
+
+    .title_text {
+        @include flex(flex-start, baseline);
+        font-size: 24rpx;
+        color: #666666;
+
+        .line {
+            margin: 0 10rpx;
+            @include w-h(2rpx, 23rpx);
+            background-color: #666666;
+        }
+    }
+
+    .hospital {
+        font-size: 24rpx;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #999999;
+    }
+}

@@ -3,7 +3,7 @@
  * @Autor: Seven
  * @Date: 2022-05-05 14:42:59
  * @LastEditors: Seven
- * @LastEditTime: 2022-06-27 16:56:11
+ * @LastEditTime: 2022-06-28 09:48:19
  * @FilePath: \uniDemod:\studyWeb\vue\mvvm\index.html
  * @Description: 
  * @Version: 2.0
@@ -25,6 +25,7 @@
         <input v-model="name">
         <h1>{{name}}</h1>
         <button v-on:click="clickMe">click me!</button>
+        <div>{{age}}</div>
     </div>
     <script src="js/observer.js"></script>
     <script src="js/watcher.js"></script>
@@ -45,8 +46,8 @@
             },
             mounted: function () {
                 setTimeout(() => {
-                    this.title = '你好';
-                }, 1000);
+                    this.title = '你好'
+                }, 3000);
             }
         });
     </script>

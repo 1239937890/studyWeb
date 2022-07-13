@@ -1,0 +1,37 @@
+.my_tabs {
+    position: relative;
+    margin-bottom: 42rpx;
+    padding: 24rpx 0;
+    z-index: 1;
+}
+
+.tabs {
+    @include flex(space-around, center);
+    height: 42rpx;
+
+    .item {
+        font-size: 32rpx;
+        font-family: PingFang SC;
+        font-weight: 500;
+        color: #666666;
+    }
+
+    .activity_item {
+        position: relative;
+        color: #3578F2 !important;
+
+        &::before {
+            content: '';
+            position: absolute;
+            bottom: -22rpx;
+            left: 18rpx;
+            @include w-h(26rpx, 4rpx);
+            background-color: #4F90F7;
+            border-radius: 2rpx;
+        }
+    }
+}
+
+.half_line {
+    z-index: -1;
+}

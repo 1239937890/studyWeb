@@ -1,0 +1,111 @@
+.voice {
+    padding: 0 30rpx;
+
+    .item {
+        height: 382rpx;
+
+        .content {
+            margin-bottom: 24rpx;
+            padding: 34rpx 24rpx;
+            background-color: #FFFFFF;
+            border: 1rpx solid #EEEEEE;
+            box-shadow: 3rpx 5rpx 24rpx 0rpx rgba(213, 214, 218, 0.54);
+            border-radius: 20rpx;
+        }
+    }
+
+    .row_1 {
+        @include flex(flex-start, center);
+
+        .image {
+            margin-top: 7rpx;
+            margin-right: 14rpx;
+            @include w-h(34rpx, 38rpx);
+            min-width: 34rpx;
+        }
+
+        .text {
+            width: 590rpx;
+            font-size: 34rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #000000;
+        }
+    }
+
+    .row_2 {
+        margin: 33rpx 0 36rpx 0;
+        @include flex(flex-start, baseline);
+        font-size: 28rpx;
+        color: #000000;
+
+        .title_text {
+            @include flex(flex-start, baseline);
+            font-size: 24rpx;
+            color: #666666;
+
+            .line {
+                margin: 0 10rpx;
+                @include w-h(2rpx, 23rpx);
+                background-color: #666666;
+            }
+        }
+
+        .hospital {
+            margin-left: 21rpx;
+            font-size: 24rpx;
+            font-family: PingFang SC;
+            font-weight: 500;
+            color: #999999;
+        }
+    }
+
+    .row_3 {
+        display: flex;
+        margin-bottom: 37rpx;
+
+        .image {
+            margin-right: 17rpx;
+            @include w-h(72rpx, 72rpx);
+            border-radius: 50%;
+        }
+
+        .voice_box {
+            @include flex(space-between, center);
+            padding: 0 30rpx;
+            @include w-h(413rpx, 72rpx);
+            font-size: 24rpx;
+            color: #FFFFFF;
+            background-color: #4F90F7;
+            border-radius: 36rpx;
+            box-sizing: border-box;
+
+            .iconfont {
+                font-size: 38rpx;
+                color: #FFFFFF;
+
+            }
+        }
+
+        .voice-play {
+            @include w-h(16rpx, 20rpx);
+            border-radius: 0rpx !important;
+        }
+    }
+
+    .row_4 {
+        @include flex(flex-start, center);
+        font-size: 26rpx;
+        color: #999999;
+
+        .iconfont {
+            margin-right: 11rpx;
+            font-size: 26rpx;
+            color: #999999;
+        }
+
+        .row_4_text {
+            margin-right: 61rpx;
+        }
+    }
+}

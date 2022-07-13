@@ -15,7 +15,7 @@ Compile.prototype = {
         if (this.el) {
             this.fragment = this.nodeToFragment(this.el);
             this.compileElement(this.fragment);
-            this.el.appendChild(this.fragment); ////添加到当前节点中
+            this.el.appendChild(this.fragment); //添加到当前节点中
         } else {
             console.log('Dom元素不存在');
         }
@@ -100,7 +100,6 @@ Compile.prototype = {
             }
             self.vm[exp] = newValue;
             val = newValue;
-            console.log(self)
         });
     },
     //更新节点的textContent属性

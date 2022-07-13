@@ -1,0 +1,40 @@
+ $primary: #3578F2;
+
+ @mixin w-h($w, $h) {
+     width: $w;
+     height: $h;
+ }
+
+ @mixin flex($x, $y) {
+     display: flex;
+     justify-content: $x;
+     align-items: $y;
+ }
+
+ .ellipse {
+     overflow: hidden;
+     text-overflow: ellipsis;
+     white-space: nowrap;
+ }
+
+ .row_ellipse {
+     letter-spacing: 0;
+     overflow: hidden;
+     display: -webkit-box;
+     text-overflow: ellipsis;
+     -webkit-line-clamp: 2;
+     /*要显示的行数*/
+     -webkit-box-orient: vertical;
+ }
+
+ .half_line {
+     content: "";
+     position: absolute;
+     top: 0;
+     left: 0;
+     min-width: 200%;
+     height: 200%;
+     border-bottom: 1px solid #EEEEEE;
+     transform-origin: 0 0;
+     transform: scale(.5, .5);
+ }
