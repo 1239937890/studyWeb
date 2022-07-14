@@ -32,7 +32,7 @@ export default {
             proxy.swipeHeight = num ? val * num : val;
         }
         const handlerDep = (index, list) => {
-            list ? getDataList(list) : proxy.$refs['my-swipe'].swipeTo(index)
+            list ? getDataList(list) : proxy.swipeRef.swipeTo(index)
             getChildrenData(index)
         }
         const getDataList = val => {

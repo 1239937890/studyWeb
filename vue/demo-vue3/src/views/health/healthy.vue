@@ -3,7 +3,7 @@
     <div class="search" ref="searchRef">
         <Search :type="health" :lookType="health" />
     </div>
-    <div class="main" ref="main">
+    <div class="main">
         <div class="bg">
             <img src="@/assets/images/zhangai.png" />
         </div>
@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="swiper_container">
-            <van-swipe ref="my-swipe" :height="swipeHeight" :loop="false" :show-indicators="false" @change="swiperChange">
+            <van-swipe ref="swipeRef" :height="swipeHeight" :loop="false" :show-indicators="false" @change="swiperChange">
                 <van-swipe-item v-for="item in dataList" :key="item.id">
                     <div v-show="item.isInit" class="skeleton">
                         <div class="row">
@@ -47,10 +47,10 @@
 </template>
 <script>
     import {
+        ref,
         reactive,
         toRefs,
         onMounted,
-        getCurrentInstance,
         onUnmounted
     } from 'vue';
     import healths from './healths';
@@ -77,9 +77,9 @@
             End
         },
         setup() {
-            const {
-                proxy
-            } = getCurrentInstance()
+            const headerRef = ref(null)
+            const searchRef = ref(null)
+            const swipeRef = ref(null)
             const {
                 handlerDep,
                 handlerLoad,
@@ -100,7 +100,7 @@
                 } = await categoryList()
                 handlerDep(0, data)
                 state.categoryLists = data
-                state.tabStickyTop = proxy.$refs['headerRef'].$el.clientHeight + proxy.$refs['searchRef'].clientHeight - 1
+                state.tabStickyTop = headerRef.value.$el.clientHeight + searchRef.value.clientHeight - 1
             }
             const tapDep = () => {
                 handlerDep(state.currentIndex)
@@ -122,7 +122,10 @@
                 handlerDep,
                 handlerLoad,
                 swiperChange,
-                getHeight
+                getHeight,
+                searchRef,
+                headerRef,
+                swipeRef
             }
         },
         created() {
