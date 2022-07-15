@@ -129,9 +129,6 @@
             }
         },
         created() {
-            this.$nextTick(() => {
-                console.log('nextTick', this.dataList)
-            })
             setTimeout(() => {
                 console.log(this.dataList)
             }, 200)

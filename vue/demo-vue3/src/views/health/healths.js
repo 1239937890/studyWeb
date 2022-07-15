@@ -1,5 +1,6 @@
 import {
-    getCurrentInstance
+    getCurrentInstance,
+    nextTick
 } from 'vue'
 export default {
     setup() {
@@ -53,7 +54,7 @@ export default {
         const getChildrenData = index => {
             proxy.dataList[index].page = 1
             proxy.dataList[index].flag = true
-            proxy.$nextTick(() => {
+            nextTick(() => {
                 if (proxy.$refs[proxy.dataList[index].ref] && proxy.$refs[proxy.dataList[index].ref][0]) {
                     proxy.$refs[proxy.dataList[index].ref][0].getDataList();
                 }

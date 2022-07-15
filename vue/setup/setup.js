@@ -36,3 +36,6 @@
 // 同时还可以使用到 Vue 组件内的状态（ data或者props） 的值。 简单来说就是, 即希望继续在组件内部使用Dialog,
 // 又希望渲染的 DOM 结构不嵌套在组件的 DOM 中。 此时就需要 Teleport 上场，
 // 我们可以用 < Teleport > 包裹Dialog, 此时就建立了一个传送门， 可以将Dialog渲染的内容传送到任何指定的地方。
+
+// v-slot
+// 在 Vue2.x 中具名插槽和作用域插槽分别使用slot和slot-scope来实现， 在 Vue3.0 中将slot和slot-scope进行了合并同意使用。 Vue3.0 中v-slot
