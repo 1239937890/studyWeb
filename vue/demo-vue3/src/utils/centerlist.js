@@ -1,11 +1,12 @@
 import {
-		myCollect,
-		myFeedback,
-		myFollow,
-		mySet,
-		myTest,
-		myZan,
-	} from "@/utils/pic";
+	myCollect,
+	myFeedback,
+	myFollow,
+	mySet,
+	myarea,
+	myTest,
+	myZan,
+} from "@/utils/pic";
 const centerTopList = [{
 	id: 1,
 	logo: myFollow,
@@ -33,7 +34,7 @@ const centerServiceList = [{
 	id: 2,
 	title: '参与过的专区',
 	info: '查看关注的专区',
-	logo: '/static/images/center/myarea.png',
+	logo: myarea,
 	url: '/pages/sub/center/topicList'
 }, {
 	id: 3,
