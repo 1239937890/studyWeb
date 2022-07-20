@@ -99,6 +99,7 @@
                     data
                 } = await categoryList()
                 handlerDep(0, data)
+                console.log('state',state)
                 state.categoryLists = data
                 state.tabStickyTop = headerRef.value.$el.clientHeight + searchRef.value.clientHeight - 1
             }

@@ -1,7 +1,7 @@
 <template>
     <div class="page">
         <img class="bg-ring" src="@/assets/images/bg-ring.png" />
-        <div class="header-title">民福康</div>
+        <div class="header-title">民福康{{isLogin}}</div>
         <div class="no-login">
             <img v-if="isLogin" class="head-no-login" :src="userInfo.avatar" />
             <img v-else class="head-no-login" :src="headDefault" />
@@ -47,13 +47,22 @@
 <script setup>
     import BottomNavBar from "@/components/bottomNavBar.vue";
     import End from '@/components/loading/end.vue';
-    import newLogins from "@/hooks/newLogins";
+    import {useLogin} from "@/hooks/newLogins";
+    import {
+        useAllStore
+    } from '@/store/index';
+    import {
+        reactive
+    } from 'vue';
+    import {
+        storeToRefs
+    } from 'pinia';
     import {
         getUserUrl
     } from "@/utils/index";
     import {
         headDefault
-    } from "@/utils/pic"
+    } from "@/utils/pic";
     import {
         centerTopList,
         centerServiceList
@@ -61,9 +70,13 @@
     import {
         userInfo
     } from "@/api/center";
-
+    const allStore = useAllStore()
+    console.log('allStore1>>>', allStore)
+    console.log('useLogin',useLogin())
+    const {hanlderLogin,isLogin} = useLogin()
+    console.log('isLogin>>>',isLogin)
+    // const {moreLineHeight} = allStore
     // const {data} = await userInfo()
-    // console.log('data>>>',data)
 </script>
 <style lang="scss" scoped>
     .page {
