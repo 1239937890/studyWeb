@@ -21,6 +21,7 @@
     "vant": "^3.5.2",
     "vue": "^3.2.25",
     "vue-router": "^4.0.13",
+    "vuepress-plugin-cat": "^1.0.3",
     "vuex": "^4.0.2"
   },
   "devDependencies": {

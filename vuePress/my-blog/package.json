@@ -1,0 +1,17 @@
+{
+  "name": "cat",
+  "version": "1.0.0",
+  "author": "reco_luan",
+  "scripts": {
+    "dev": "vuepress dev . --open --host \"localhost\"",
+    "build": "vuepress build ."
+  },
+  "devDependencies": {
+    "vuepress": "1.8.2",
+    "vuepress-theme-reco": "1.6.14"
+  },
+  "description": "small cat",
+  "dependencies": {
+    "vuepress-plugin-cat": "^1.0.3"
+  }
+}

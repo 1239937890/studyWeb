@@ -75,7 +75,6 @@
     console.log('useLogin',useLogin())
     const {hanlderLogin,isLogin} = useLogin()
     console.log('isLogin>>>',isLogin)
-    // const {moreLineHeight} = allStore
     // const {data} = await userInfo()
 </script>
 <style lang="scss" scoped>

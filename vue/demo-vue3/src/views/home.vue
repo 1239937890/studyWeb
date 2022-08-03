@@ -69,6 +69,7 @@
             <Pageend class="pageend" />
         </div>
     </div>
+    <Cat />
     <BottomNavBar />
 </template>
 <script>
@@ -84,6 +85,7 @@
     import Pageload from '@/components/loading/pageLoading.vue';
     import BottomNavBar from "@/components/bottomNavBar.vue";
     import Pageend from '@/components/loading/end.vue';
+    import Cat from "@/components/vuepress-plugin-cat/cat.vue";
     import {
         banner,
         lookup,
@@ -103,7 +105,8 @@
         components: {
             Pageload,
             BottomNavBar,
-            Pageend
+            Pageend,
+            Cat
         },
         setup() {
             const router = useRouter()
