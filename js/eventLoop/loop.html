@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 注释1：JS为什么是单线程的？
+    答：因为JS创立的本质就是就简单的操作DOM，完成用户的一些交互。如果是多个线程的话，那就有可能产生冲突的情况，
+    例如同时又两个线程对一个DOM进行了不同的操作，那要以哪一个线程为准呢？所以为了保持一致性，JS必须是单线程的，也不得不是单线程的。 -->
+
+
+    <!-- 事件循环是解决异步回调的一种机制，同步任务放在执行栈中执行，异步任务放在任务队列中，异步任务又分为微任务宏任务；
+    当执行栈中同步任务执行完毕后开始执行任务队列中所有的微任务，之后执行宏任务中的同步任务，之后在执行当执行宏任务中产生的
+    所有微任务，执行完毕后按照刚刚的过程开始下一个宏任务，就这样循环的执行下去。 -->
+    <script>
+        
+    </script>
+</body>
+
+</html>
