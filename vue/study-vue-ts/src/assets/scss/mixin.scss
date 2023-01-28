@@ -1,0 +1,22 @@
+$primary: #3578f2;
+@mixin flex($x: center, $y: center) {
+  display: flex;
+  justify-content: $x;
+  align-items: $y;
+}
+
+@mixin w-h($w: 100%, $h: 100%) {
+  width: $w;
+  height: $h;
+}
+
+@mixin textoverflow($clamp: 1) {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -o-text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $clamp;
+  /*! autoprefixer: ignore next */
+  -webkit-box-orient: vertical;
+}

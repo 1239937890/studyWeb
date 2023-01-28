@@ -1,0 +1,48 @@
+{
+  "name": "vue3-mobile-template",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "serve": "vite preview",
+    "lint:fix": "eslint --ext .ts,.tsx,.vue --fix ."
+  },
+  "dependencies": {
+    "@types/md5": "^2.3.1",
+    "@vueuse/core": "^7.1.2",
+    "@vueuse/integrations": "^7.1.2",
+    "axios": "^0.24.0",
+    "md5": "^2.3.0",
+    "vant": "^3.3.4",
+    "vue": "^3.2.16",
+    "vue-i18n": "^9.2.0-beta.22",
+    "vue-router": "^4.0.12",
+    "vuex": "^4.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "^16.11.11",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "@vitejs/plugin-legacy": "^1.6.4",
+    "@vitejs/plugin-vue": "^1.9.3",
+    "@vitejs/plugin-vue-jsx": "^1.3.0",
+    "@vue/eslint-config-prettier": "^7.0.0",
+    "@vue/eslint-config-typescript": "^10.0.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-vue": "^8.2.0",
+    "less": "^4.1.2",
+    "less-loader": "^10.2.0",
+    "postcss": "^8.4.4",
+    "postcss-pxtorem": "^6.0.0",
+    "prettier": "^2.5.1",
+    "typescript": "^4.4.3",
+    "vconsole": "^3.9.5",
+    "vite": "^2.6.4",
+    "vite-plugin-eslint": "^1.3.0",
+    "vite-plugin-style-import": "^1.4.0",
+    "vite-plugin-vconsole": "^1.1.1",
+    "vue-tsc": "^0.3.0"
+  }
+}
