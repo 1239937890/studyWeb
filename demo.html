@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="./sha.js"></script>
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      const AppKey = "u1ZSGkUuu66j6M20rC8zfA";
+      const AppSecret = "00zadK8V0n7bSIurXZYO5";
+      const MasterSecret = "DAEArJKYSZ8AE7swqRtOs8";
+      const AppID = "RNYmku69hY6LOpC0s60aA";
+      const time = new Date().getTime();
+      const sign = `${AppKey}${time}${MasterSecret}`;
+      const BaseUrl = `https://restapi.getui.com/v2/${AppID}`;
+      console.log("sign>>>>>", sign);
+      console.log("SHA256>>>>>", SHA256(sign));
+      console.log(time);
+      axios.defaults.baseURL = BaseUrl;
+      //   axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
+      axios.defaults.headers.post["Content-Type"] =
+        "application/json;charset=utf-8";
+      axios
+        .post("/auth", {
+          sign: SHA256(sign),
+          timestamp: time,
+          appkey: AppKey,
+        })
+        .then(function (response) {
+          console.log("response>>>>>>", response);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    </script>
+  </body>
+</html>

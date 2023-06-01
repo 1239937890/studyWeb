@@ -145,6 +145,10 @@ function articleRecommend() {
 function getBanner() {
     return axios.post('/banner')
 }
+//首页轮播
+function getAuth() {
+    return axios.post('/auth')
+}
 export {
     // shield,
     // wordItems,
@@ -163,6 +167,7 @@ export {
     // cepingIllness,
     getTestsByIll,
     getRecommendTests,
+    getAuth,
     // wxArticle,
     // wxArticleInfo,
     // searchWords,

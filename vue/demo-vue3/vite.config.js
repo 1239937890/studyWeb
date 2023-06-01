@@ -31,9 +31,15 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    // proxy: {
+    //   '/api': {
+    //     target: 'https://mfkmpapi.39yst.com',
+    //     changeOrigin: true
+    //   }
+    // }
     proxy: {
-      '/api': {
-        target: 'https://mfkmpapi.39yst.com',
+      '/v2': {
+        target: 'https://restapi.getui.com',
         changeOrigin: true
       }
     }

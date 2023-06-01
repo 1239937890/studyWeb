@@ -15,10 +15,12 @@ import {
     Toast
 } from 'vant';
 import router from '../router';
-axios.defaults.baseURL = '/api'
+const AppID = "RNYmku69hY6LOpC0s60aA";
+axios.defaults.baseURL = `/v2/${AppID}`
 axios.defaults.withCredentials = true
-axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest'
-// axios.defaults.headers['token'] = localStorage.getItem('token') || ''
+axios.defaults.headers['X-Requested-With'] = 'XMLHttpRequest' 
+// axios.defaults.headers['token'] = localStorage.getItem('token') || '' 
+// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8'
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.headers.get['Content-Type'] = 'application/x-www-form-urlencoded'
 axios.interceptors.response.use(res => {
