@@ -1,0 +1,59 @@
+.el-input {
+	::-webkit-input-placeholder {
+		/* WebKit browsers */
+		color: #999999;
+		font-size: 16px;
+	}
+
+	::-moz-placeholder {
+		/* Mozilla Firefox 19+ */
+		color: #999999;
+		font-size: 16px;
+	}
+
+	:-ms-input-placeholder {
+		/* Internet Explorer 10+ */
+		color: #999999;
+		font-size: 16px;
+	}
+}
+.login_form {
+	:deep(.el-form-item) {
+		margin-bottom: 22px;
+	}
+	:deep(.el-input__wrapper) {
+		border-radius: 25px;
+		border: 1px solid #027aff;
+		background-color: #d2e7f4;
+		box-shadow: none !important;
+		.el-input__inner {
+			padding: 1px 6px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 20px;
+			border-radius: 25px;
+			background-color: #d2e7f4;
+		}
+	}
+}
+
+.captcha {
+	@include flex;
+	:deep(.el-input__wrapper) {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+	.code {
+		@include flex;
+		@include w-h(143px, 54px);
+		min-width: 143px;
+		border: 1px solid #027aff;
+		border-left: none;
+		border-radius: 0 25px 25px 0;
+		cursor: pointer;
+		img {
+			@include w-h(100%, 100%);
+			border-radius: 0 25px 25px 0;
+		}
+	}
+}

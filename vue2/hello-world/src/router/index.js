@@ -1,17 +1,21 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 Vue.use(VueRouter);
-const routes = [{
+export const constantRoutes = [{
     path: '/',
     name: 'Index',
-    component: () => import('../view/index.vue'),
+    component: () => import('@/view/index.vue'),
 }, ]
-const router = new VueRouter({
-    mode: 'history', // 去掉url中的#
+const createRouter = ()=> new VueRouter({
+    mode: 'history',
     scrollBehavior: () => ({
         y: 0
     }),
-    routes: routes,
+    routes: constantRoutes,
 });
-
+const router = createRouter()
+export function resetRouter() {
+    const newRouter = createRouter()
+    router.matcher = newRouter.matcher // reset router
+  }
 export default router;

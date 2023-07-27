@@ -5,6 +5,7 @@ import store from './store'
 import ElementUI from 'element-ui';
 import VueIframe from 'vue-iframes'
 import 'element-ui/lib/theme-chalk/index.css';
+import './permission';
 Vue.use(ElementUI);
 Vue.use(VueIframe);
 Vue.config.productionTip = false

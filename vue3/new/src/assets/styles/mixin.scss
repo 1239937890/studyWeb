@@ -1,0 +1,11 @@
+@import './var.scss';
+@mixin flex($x:center, $y:center) {
+    display: flex;
+    justify-content: $x;
+    align-items: $y;
+}
+
+@mixin w-h($w, $h) {
+    width: $w;
+    height: $h;
+}
