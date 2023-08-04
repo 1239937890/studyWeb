@@ -1,7 +1,7 @@
 <template></template>
 <script setup>
 import { ElLoading, ElMessage } from 'element-plus';
-import useUser from '@/store/modules/system';
+import useUser from '@/store/modules/user';
 const userStore = useUser();
 const route = useRoute();
 const router = useRouter();
@@ -12,7 +12,7 @@ const loading = ElLoading.service({
 	text: '正在登陆...',
 	background: 'rgba(0, 0, 0, 0.5)',
 });
-if (token && token.length > 0) {
+if (token) {
 	userStore.callBackLogin(token).then(() => {
 		router.replace({
 			path: redirect || '/',

@@ -1,18 +1,11 @@
 import request from '@/utils/request';
 
 // 登录方法
-export function login(username, password, captcha, captchaKey) {
-	const data = {
-		username,
-		password,
-		captcha,
-		captchaKey,
-	};
+export function login(data) {
 	return request({
 		url: '/auth/wsxf/pcLogin',
-
 		method: 'post',
-		data: data,
+		data,
 	});
 }
 // 老用户登录方法

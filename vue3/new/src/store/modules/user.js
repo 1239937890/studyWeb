@@ -2,12 +2,38 @@ import { defineStore } from 'pinia';
 import router from '@/router';
 import { getToken, setToken, removeToken } from '@/utils/auth';
 import useSystem from './system';
+import { encrypt_login } from '@/utils/jsencrypt';
+import { login, logout, getInfo, loginSjh } from '@/api/login';
 const useUser = defineStore('user', {
 	state: () => ({
 		userName: '',
 		token: getToken(),
 	}),
 	actions: {
+		// 登录
+		Login(userInfo) {
+			console.log('userInfo', userInfo);
+			const { username, password, captcha, captchaKey } = userInfo;
+			const params = {
+				username: username.trim(),
+				password: encrypt_login(password),
+				captcha,
+				captchaKey,
+			};
+			console.log('params', params);
+			return new Promise((resolve, reject) => {
+				login(params)
+					.then((res) => {
+						console.log('登录成功', res);
+						setToken(res.data.access_token);
+						this.token = res.data.access_token;
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			});
+		},
 		//跳转登录/注册
 		jumpLogin(isLogin) {
 			// const getKey = () => {};

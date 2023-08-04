@@ -25,6 +25,9 @@
 </template>
 <script setup>
 import useLogin from './hooks';
+import useUser from '@/store/modules/user';
+const userStore = useUser();
+const emit = defineEmits(['end']);
 const { key, codeUrl, formRules, getCode } = useLogin();
 const loginForm = ref(null);
 const loginParams = ref({
@@ -33,9 +36,54 @@ const loginParams = ref({
 	captcha: '',
 	captchaKey: '',
 });
+watch(
+	key,
+	(value) => {
+		loginParams.value.captchaKey = value;
+	},
+	{
+		deep: true,
+	}
+);
 const handleLogin = () => {
-	console.log('loginParams', loginParams);
+	loginForm.value.validate((valid) => {
+		if (valid) {
+			userStore
+				.Login(loginParams.value)
+				.then(() => {
+					console.log('登录成功回调');
+				})
+				.catch(() => {
+					loginParams.value.captcha = '';
+					getCode();
+				});
+		}
+		emit('end');
+	});
 };
+defineExpose({
+	handleLogin,
+});
+// this.$refs.loginForm.validate((valid) => {
+//           if (valid) {
+//             this.loading = true;
+//             this.$store
+//               .dispatch('Login', this.loginForm)
+//               .then(() => {
+//                 console.log(this.redirect);
+//                 this.$router
+//                   .push({
+//                     path: this.redirect || '/',
+//                     query: this.query,
+//                   })
+//                   .catch(() => {});
+//               })
+//               .catch(() => {
+//                 this.loading = false;
+//                 this.getCode();
+//               });
+//           }
+//         });
 </script>
 <style lang="scss" scoped>
 @import './login.scss';

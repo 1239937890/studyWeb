@@ -3,13 +3,13 @@
 		<div class="login_container">
 			<el-tabs class="my_tabs" v-model="activeName" @tab-click="handleTab">
 				<el-tab-pane label="账号登录" name="first">
-					<Account />
+					<Account ref="accountModule" @end="closeLoading" />
 				</el-tab-pane>
 				<el-tab-pane label="短信登录" name="second">
-					<Sms />
+					<Sms ref="smsModule" @end="closeLoading" />
 				</el-tab-pane>
 			</el-tabs>
-			<el-button class="login_btn" @click="handleLogin" :loading="loading" size="large" type="primary">登 录</el-button>
+			<el-button class="login_btn" @click="handleLogin" :loading="loading" size="large" type="primary">{{ btnText }}</el-button>
 			<div class="row">
 				<span class="item" @click="jumpPage">注册&emsp;</span>
 				<span>|</span>
@@ -22,7 +22,12 @@
 import Account from './components/account';
 import Sms from './components/sms';
 const loading = ref(false);
+const btnText = computed(() => {
+	return loading.value ? '登 录 中...' : '登 录';
+});
 const activeName = ref('first');
+const accountModule = ref();
+const smsModule = ref();
 const loginParams = ref({
 	username: '',
 	password: '',
@@ -38,7 +43,13 @@ const phoneParams = ref({
 const handleTab = (val) => {
 	val.name === 'first' ? (loginParams.value.username = phoneParams.value.sjh) : (phoneParams.value.sjh = loginParams.value.username);
 };
-const handleLogin = () => {};
+const handleLogin = () => {
+	loading.value = true;
+	activeName.value == 'first' ? accountModule.value.handleLogin() : smsModule.value.handleLogin();
+};
+const closeLoading = () => {
+	loading.value = false;
+};
 const jumpPage = () => {};
 </script>
 <style lang="scss" scoped>

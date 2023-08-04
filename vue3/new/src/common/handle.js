@@ -41,10 +41,8 @@ export const updateSys = (value) => {
 		}
 	});
 	if (params) {
-		console.log('params', params);
 		const systemStore = useSystem();
 		systemStore.$patch(params);
-		console.log('systemStore', systemStore);
 	}
 };
 /**
