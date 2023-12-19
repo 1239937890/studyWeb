@@ -10,9 +10,8 @@ const useUser = defineStore('user', {
 		token: getToken(),
 	}),
 	actions: {
-		// 登录
+		// 账号登录
 		Login(userInfo) {
-			console.log('userInfo', userInfo);
 			const { username, password, captcha, captchaKey } = userInfo;
 			const params = {
 				username: username.trim(),
@@ -20,11 +19,25 @@ const useUser = defineStore('user', {
 				captcha,
 				captchaKey,
 			};
-			console.log('params', params);
 			return new Promise((resolve, reject) => {
 				login(params)
 					.then((res) => {
-						console.log('登录成功', res);
+						this.token = res.data.access_token;
+						setToken(res.data.access_token);
+						resolve();
+					})
+					.catch((error) => {
+						reject(error);
+					});
+			});
+		},
+		// 手机登录
+		sjLogin(userInfo) {
+			const sjh = userInfo.sjh.trim();
+			const smsCode = userInfo.smsCode;
+			return new Promise((resolve, reject) => {
+				loginSjh({ sjh, smsCode })
+					.then((res) => {
 						setToken(res.data.access_token);
 						this.token = res.data.access_token;
 						resolve();
@@ -36,20 +49,18 @@ const useUser = defineStore('user', {
 		},
 		//跳转登录/注册
 		jumpLogin(isLogin) {
-			// const getKey = () => {};
-			// const KEY = getKey();
 			const KEY = isLogin ? 'LOGIN' : 'REGISTER';
 			const systemStore = useSystem();
 			const { orgId } = systemStore;
 			if (import.meta.env.VITE_APP_ENV === 'production') {
-				location.href = `${import.meta.env[`VITE_APP_${KEY}_URL`]}?orgid=${orgId}`; //跳转江苏省登录/注册
+				location.href = `${import.meta.env[`VITE_APP_${KEY}_URL`]}?orgId=${orgId}`; //跳转江苏省登录/注册
 			} else {
 				console.log('router>>>', router);
 				console.log(import.meta.env[`VITE_APP_${KEY}_URL`]);
 				router.push({
 					path: import.meta.env[`VITE_APP_${KEY}_URL`],
 					query: {
-						orgid: orgId,
+						orgId,
 					},
 				});
 			}

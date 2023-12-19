@@ -47,7 +47,7 @@ export function getJgidByValue(constant, value) {
 	return jgid;
 }
 
-//根据orgid获取版权所有
+//根据orgId获取版权所有
 export function getZbdwByValue(constant, value) {
 	let zbdw = null;
 	Object.values(constant).forEach((item) => {
@@ -58,7 +58,7 @@ export function getZbdwByValue(constant, value) {
 	return zbdw;
 }
 
-//根据orgid获取地址
+//根据orgId获取地址
 export function getDzByValue(constant, value) {
 	let dz = null;
 	Object.values(constant).forEach((item) => {

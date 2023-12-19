@@ -75,7 +75,7 @@ service.interceptors.response.use(
 				.then(() => {
 					const systemStore = useSystem();
 					const { orgId } = systemStore;
-					location.href = `${process.env.VITE_APP_LOGIN_URL}?orgid=${orgId}`;
+					location.href = `${process.env.VITE_APP_LOGIN_URL}?orgId=${orgId}`;
 				})
 				.catch(() => {});
 			return Promise.reject('无效的会话，或者会话已过期，请重新登录。');

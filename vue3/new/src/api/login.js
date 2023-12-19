@@ -23,14 +23,9 @@ export function oldLogin(username, password, captcha, captchaKey) {
 	});
 }
 // 手机号登录方法
-export function loginSjh(sjh, smsCode) {
-	const data = {
-		sjh,
-		smsCode,
-	};
+export function loginSjh(data) {
 	return request({
 		url: '/auth/wsxf/pcSjLogin',
-
 		method: 'post',
 		data: data,
 	});
@@ -56,15 +51,9 @@ export function getLoginCodeImg() {
 }
 
 // 发送短信验证码
-export function getSmsCode(sjh, captcha, captchaKey) {
-	const data = {
-		sjh,
-		captcha,
-		captchaKey,
-	};
+export function getSmsCode(data) {
 	return request({
 		url: '/wsxf/sms/login',
-
 		method: 'post',
 		data: data,
 	});

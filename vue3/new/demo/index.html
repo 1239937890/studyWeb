@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<script src="./dsbridge.js"></script>
+		<title>Document</title>
+	</head>
+	<body>
+		<script type="text/javascript">
+			console.log('dsBridge', dsBridge);
+			var newWebData = {
+				app_key: 'szyx',
+				version: 'V1.0.0',
+			};
+			function newWebview() {
+				console.log('执行');
+				return dsBridge.call('BusinessApi.getUserInfo', JSON.stringify(newWebData), function (v) {
+					console.log('回调参数', v);
+				});
+			}
+			console.log('newWebview()', newWebview());
+		</script>
+	</body>
+</html>

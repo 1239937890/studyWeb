@@ -1,4 +1,4 @@
-import validate from '@/utils/validate';
+import validate from '@/api/validate';
 import { getCodeImg } from '@/api/login';
 export default function () {
 	const key = ref('');
@@ -10,12 +10,11 @@ export default function () {
 			codeUrl.value = img;
 		});
 	};
-	getCode();
 	const formRules = {
 		username: [{ required: true, trigger: 'blur', message: '请输入您的账号' }],
 		password: [{ required: true, trigger: 'blur', message: '请输入您的密码' }],
 		captcha: [{ required: true, trigger: 'blur', message: '请输入验证码' }],
-		sjh: [{ required: true, pattern: validate.phone, message: validate.phoneMsg, trigger: 'blur' }],
+		sjh: [{ required: true, pattern: validate.phone, trigger: 'blur', message: validate.phoneMsg }],
 		smsCode: [{ required: true, trigger: 'blur', message: '请输入短信验证码' }],
 	};
 	return {

@@ -1,62 +1,113 @@
-export default {
-	// 手机号正则表达式
-	phone: /^1\d{10}$/,
-	phoneMsg: '请正确填写手机号',
-	isPhone(value) {
-		return this.phone.test(value);
-	},
-	// 身份证正则表达式
-	identity: /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/,
-	identityMsg: '请正确填写身份证号',
-	isSfzh(rule, value, callback) {
-		if (!value) {
-			return callback(new Error('身份证号码不能为空'));
-		}
-		function validataCredentials(num) {
-			var msg, boo; //  msg身份证验证友情提示,boo返回值
-			var num = num.toUpperCase(); // 身份证为末尾可能是X
-			//   身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，
-			//   最后一位是校验位，可能为数字或字符X。
-			const arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
-			const arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-			var nTemp = 0,
-				i;
-			if (!/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(num)) {
-				//  输入的身份证号长度不对，或者号码不符合规定;
-				return [(boo = false), (msg = '输入的身份证号长度不对，或者号码不符合规定')];
-			}
-			//   校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-			//   下面分别分析出生日期和校验位
-			var len, re;
-			len = num.length;
-			if (len == 15) {
-				re = new RegExp(/^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/);
-				var arrSplit = num.match(re);
-				//   检查生日日期是否正确
-				var dtmBirth = new Date('19' + arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4]);
-				var bGoodDay;
-				bGoodDay =
-					dtmBirth.getYear() == Number(arrSplit[2]) &&
-					dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
-					dtmBirth.getDate() == Number(arrSplit[4]);
-				if (!bGoodDay) {
-					//   输入的身份证号里出生日期不对！
-					return [(boo = false), (msg = '输入的身份证号里出生日期不对！')];
-				} else {
-					//   将15位身份证转成18位
-					//   校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-					num = num.substr(0, 6) + '19' + num.substr(6, num.length - 6);
-					for (i = 0; i < 17; i++) {
-						nTemp += num.substr(i, 1) * arrInt[i];
-					}
-					num += arrCh[nTemp % 11];
-					return [(boo = true), (msg = num)];
-				}
-			}
+/**
+ * @param {string} path
+ * @returns {Boolean}
+ */
+export function isExternal(path) {
+	return /^(https?:|mailto:|tel:)/.test(path);
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function validUsername(str) {
+	const valid_map = ['admin', 'editor'];
+	return valid_map.indexOf(str.trim()) >= 0;
+}
+
+/**
+ * @param {string} url
+ * @returns {Boolean}
+ */
+export function validURL(url) {
+	const reg =
+		/^(https?|ftp):\/\/([a-zA-Z0-9.-]+(:[a-zA-Z0-9.&%$-]+)*@)*((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9][0-9]?)(\.(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[1-9]?[0-9])){3}|([a-zA-Z0-9-]+\.)*[a-zA-Z0-9-]+\.(com|edu|gov|int|mil|net|org|biz|arpa|info|name|pro|aero|coop|museum|[a-zA-Z]{2}))(:[0-9]+)*(\/($|[a-zA-Z0-9.,?'\\+&%$#=~_-]+))*$/;
+	return reg.test(url);
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function validLowerCase(str) {
+	const reg = /^[a-z]+$/;
+	return reg.test(str);
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function validUpperCase(str) {
+	const reg = /^[A-Z]+$/;
+	return reg.test(str);
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function validAlphabets(str) {
+	const reg = /^[A-Za-z]+$/;
+	return reg.test(str);
+}
+
+/**
+ * @param {string} email
+ * @returns {Boolean}
+ */
+export function validEmail(email) {
+	const reg =
+		/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return reg.test(email);
+}
+
+/**
+ * @param {string} str
+ * @returns {Boolean}
+ */
+export function isString(str) {
+	if (typeof str === 'string' || str instanceof String) {
+		return true;
+	}
+	return false;
+}
+
+/**
+ * @param {Array} arg
+ * @returns {Boolean}
+ */
+export function isArray(arg) {
+	if (typeof Array.isArray === 'undefined') {
+		return Object.prototype.toString.call(arg) === '[object Array]';
+	}
+	return Array.isArray(arg);
+}
+
+/**
+ * elementui 表单验证 身份证号格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validIdCard(rule, num, callback) {
+	if (num != '' && num != null) {
+		var len, re;
+		len = num.length;
+		// 判断是否包含空格变量
+		var arr = new Array();
+		arr = num.split(' ');
+		var re =
+			/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+		// 如果身份证号码包含空格,提示错误
+		if (arr.length != 1 || !re.test(num)) {
+			callback(new Error('证件号码格式不正确'));
+		} else {
 			if (len == 18) {
 				re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/);
 				var arrSplit = num.match(re);
-				//  检查生日日期是否正确
+
+				//检查生日日期是否正确
 				var dtmBirth = new Date(arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4]);
 				var bGoodDay;
 				bGoodDay =
@@ -64,160 +115,163 @@ export default {
 					dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
 					dtmBirth.getDate() == Number(arrSplit[4]);
 				if (!bGoodDay) {
-					//  输入的身份证号里出生日期不对！
-
-					return [(boo = false), (msg = ' 输入的身份证号里出生日期不对')];
+					callback(new Error('证件号码格式不正确'));
 				} else {
-					//  检验18位身份证的校验码是否正确。
-					//  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
+					//检验18位身份证的校验码是否正确。
+					//校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
 					var valnum;
+					var arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
+					var arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
+					var nTemp = 0,
+						i;
 					for (i = 0; i < 17; i++) {
 						nTemp += num.substr(i, 1) * arrInt[i];
 					}
 					valnum = arrCh[nTemp % 11];
 					if (valnum != num.substr(17, 1)) {
-						//  18位身份证的校验码不正确！
-						return [(boo = false), (msg = '身份证的校验码不正确！')];
+						callback(new Error('证件号码格式不正确'));
 					}
-					return [(boo = true), (msg = '验证成功')];
+					callback();
 				}
 			}
-			return [(boo = false), (msg = '身份证的长度不正确！')];
+			callback(new Error('证件号码格式不正确'));
 		}
-		setTimeout(() => {
-			var res = validataCredentials(value);
-			if (!res[0]) {
-				callback(new Error(res[1]));
-			} else {
-				callback();
-			}
-		}, 200);
-	},
+	} else {
+		callback(new Error('证件号码不能为空'));
+	}
+}
 
-	isSfzhReturnBoolen(value) {
-		if (!value) {
-			return false;
+/**
+ * elementui 表单验证 身份证号格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validIdCardExt(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg =
+			/^(^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$)|(^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])((\d{4})|\d{3}[Xx])$)$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('证件号码格式不正确'));
 		}
-		function validataCredentials(num) {
-			var msg, boo; //  msg身份证验证友情提示,boo返回值
-			var num = num.toUpperCase(); // 身份证为末尾可能是X
-			//   身份证号码为15位或者18位，15位时全为数字，18位前17位为数字，
-			//   最后一位是校验位，可能为数字或字符X。
-			const arrInt = new Array(7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2);
-			const arrCh = new Array('1', '0', 'X', '9', '8', '7', '6', '5', '4', '3', '2');
-			var nTemp = 0,
-				i;
-			if (!/(^\d{15}$)|(^\d{17}([0-9]|X)$)/.test(num)) {
-				//  输入的身份证号长度不对，或者号码不符合规定;
-				return false;
-			}
-			//   校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-			//   下面分别分析出生日期和校验位
-			var len, re;
-			len = num.length;
-			if (len == 15) {
-				re = new RegExp(/^(\d{6})(\d{2})(\d{2})(\d{2})(\d{3})$/);
-				var arrSplit = num.match(re);
-				//   检查生日日期是否正确
-				var dtmBirth = new Date('19' + arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4]);
-				var bGoodDay;
-				bGoodDay =
-					dtmBirth.getYear() == Number(arrSplit[2]) &&
-					dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
-					dtmBirth.getDate() == Number(arrSplit[4]);
-				if (!bGoodDay) {
-					//   输入的身份证号里出生日期不对！
-					return false;
-				} else {
-					//   将15位身份证转成18位
-					//   校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-					num = num.substr(0, 6) + '19' + num.substr(6, num.length - 6);
-					for (i = 0; i < 17; i++) {
-						nTemp += num.substr(i, 1) * arrInt[i];
-					}
-					num += arrCh[nTemp % 11];
-					return true;
-				}
-			}
-			if (len == 18) {
-				re = new RegExp(/^(\d{6})(\d{4})(\d{2})(\d{2})(\d{3})([0-9]|X)$/);
-				var arrSplit = num.match(re);
-				//  检查生日日期是否正确
-				var dtmBirth = new Date(arrSplit[2] + '/' + arrSplit[3] + '/' + arrSplit[4]);
-				var bGoodDay;
-				bGoodDay =
-					dtmBirth.getFullYear() == Number(arrSplit[2]) &&
-					dtmBirth.getMonth() + 1 == Number(arrSplit[3]) &&
-					dtmBirth.getDate() == Number(arrSplit[4]);
-				if (!bGoodDay) {
-					//  输入的身份证号里出生日期不对！
+	} else {
+		callback();
+	}
+}
 
-					return false;
-				} else {
-					//  检验18位身份证的校验码是否正确。
-					//  校验位按照ISO 7064:1983.MOD 11-2的规定生成，X可以认为是数字10。
-					var valnum;
-					for (i = 0; i < 17; i++) {
-						nTemp += num.substr(i, 1) * arrInt[i];
-					}
-					valnum = arrCh[nTemp % 11];
-					if (valnum != num.substr(17, 1)) {
-						//  18位身份证的校验码不正确！
-						return false;
-					}
-					return true;
-				}
-			}
-			return false;
+/**
+ * elementui 表单验证 手机号格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validMobilePhone(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg =
+			/^(?:\+?86)?1(?:3\d{3}|5[^4\D]\d{2}|8\d{3}|7(?:[0-35-9]\d{2}|4(?:0\d|1[0-2]|9\d))|9[0-35-9]\d{2}|6[2567]\d{2}|4(?:(?:10|4[01])\d{3}|[68]\d{4}|[579]\d{2}))\d{6}$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('手机号码格式不正确'));
 		}
-		return validataCredentials(value);
-	},
+	} else {
+		callback();
+	}
+}
 
-	/**
-	 * 是否是身份证
-	 */
-	isIdentity(value) {
-		return this.identity.test(value);
-	},
-
-	// 包含中文
-	containChinese: /^(?=.*?[^\x00-\xff])/,
-	containChineseMsg: '必须包含中文',
-	isContainChinese(value) {
-		return this.containChinese.test(value);
-	},
-
-	// 详细地址
-	xxzz: /^(?=.*[\u4e00-\u9fa5])[A-Za-z0-9\u4e00-\u9fa5#]{1,50}$/,
-	xxzzMsg: '仅可使用中文、大小写字母、数字和#字符 ，必须包含中文，50字以内',
-	isXxzz(value) {
-		return this.xxzz.test(value);
-	},
-
-	// 密码
-	password:
-		/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[`~!@#$%^&*^()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、])[\dA-Za-z`~!@#$%^&*^()_\-+=<>?:"{}|,.\/;'\\[\]·~！@#￥%……&*（）——\-+={}|《》？：“”【】、；‘’，。、]{8,16}$/,
-	passwordMsg: '密码为大小写字母、特殊字符和数字组合，长度8-16位',
-
-	// 邮箱正则表达式
-	email: /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/,
-	emailMsg: '邮箱格式不正确',
-	isEmail(value) {
-		return this.email.test(value);
-	},
-	//去掉空格
-	clearBlank(value) {
-		if (value) {
-			value = value.replace(/\s/g, '');
+/**
+ * elementui 表单验证 手机号格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validPhone(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg = /^[0-9-+]{7,}$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('手机号码格式不正确'));
 		}
-		return value;
-	},
-	/**
-	 * 中文
-	 */
-	chinese: /^[\u4e00-\u9fa5]*$/,
-	/**
-	 * 包含中文
-	 */
-	containChinese: /^(?=.*?[\u4E00-\u9FA5])/,
-};
+	} else {
+		callback();
+	}
+}
+
+/**
+ * elementui 表单验证 中文格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validChinese(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg = /^[\u4e00-\u9fa5]*$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('请输入中文！'));
+		}
+	} else {
+		callback();
+	}
+}
+
+/**
+ * elementui 表单验证 数字字母汉字格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validNumAndAbcAndChinese(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg = /^[0-9a-zA-Z\u4e00-\u9fa5]*$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('请输入中文、字母或者数字！'));
+		}
+	} else {
+		callback();
+	}
+}
+
+/**
+ * elementui 表单验证 数字字母格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validNumAndAbc(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg = /^[0-9a-zA-Z]*$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('请输入数字或者字母！'));
+		}
+	} else {
+		callback();
+	}
+}
+
+/**
+ * elementui 表单验证 数字格式验证
+ * @param {*} rule
+ * @param {*} value
+ * @param {*} callback
+ */
+export function validNum(rule, value, callback) {
+	if (value != '' && value != null) {
+		const reg = /^[0-9]*$/;
+		if (reg.test(value)) {
+			callback();
+		} else {
+			callback(new Error('请输入数字！'));
+		}
+	} else {
+		callback();
+	}
+}
