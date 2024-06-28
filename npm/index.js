@@ -1,4 +1,4 @@
-// npm install axios
+// npm install axios 11
 // https://www.kancloud.cn/yunye/axios/234845
 
 // npm install vue-request@next
